@@ -2,18 +2,15 @@ using GroceryMarket.Infrastructure.Business;
 using GroceryMarket.Infrastructure.Business.Exceptions;
 using GroceryMarket.UnitTests.Fixtures;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace GroceryMarket.UnitTests
 {
     public class PointOfSaleTerminalShould : IClassFixture<EfContextFixture>
     {
-        private readonly ITestOutputHelper _output;
         private readonly PointOfSaleTerminal _terminal;
 
-        public PointOfSaleTerminalShould(EfContextFixture fixture, ITestOutputHelper output)
+        public PointOfSaleTerminalShould(EfContextFixture fixture)
         {
-            _output = output;
             _terminal = new PointOfSaleTerminal(fixture.Context);
         }
 
