@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using GroceryMarket.Domain.Core;
+using System.Threading.Channels;
 using GroceryMarket.Infrastructure.Business;
+using GroceryMarket.Infrastructure.Business.Exceptions;
 
 namespace GroceryMarket
 {
@@ -9,21 +10,25 @@ namespace GroceryMarket
     {
         static void Main()
         {
-            var products = new List<string>() { "A", "B", "C", "D", "A", "B", "A" };
+            var products = new List<string>() { "A", "B", "C", "D" };
 
-            using (var saleTerminal = new PointOfSaleTerminal())
+            using var saleTerminal = new PointOfSaleTerminal();
+
+            foreach (var product in products)
             {
-                saleTerminal.SetPricing(new List<Product>());
-
-                foreach (string product in products)
+                try
                 {
                     saleTerminal.ScanProduct(product);
                 }
-
-                double totalPrice = saleTerminal.CalculateTotalPrice();
-
-                Console.WriteLine($"Total price {totalPrice}");
+                catch (ProductDoesNotExist e)
+                {
+                    Console.WriteLine(e);
+                }
             }
+            double? totalPrice = saleTerminal.CalculateTotalPrice();
+
+            Console.WriteLine($"Total price {totalPrice}");
         }
     }
 }
+
