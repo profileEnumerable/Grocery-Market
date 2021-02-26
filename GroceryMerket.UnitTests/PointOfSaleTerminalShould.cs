@@ -1,4 +1,5 @@
 using GroceryMarket.Infrastructure.Business;
+using GroceryMarket.Infrastructure.Business.Exceptions;
 using GroceryMarket.UnitTests.Fixtures;
 using Xunit;
 using Xunit.Abstractions;
@@ -37,6 +38,20 @@ namespace GroceryMarket.UnitTests
         {
             // Assert 
             Assert.Equal(0, _terminal.CalculateTotalPrice());
+        }
+
+        [Fact]
+        public void Throw_ProductDoesNotExist_Exception_When_Product_Unknown()
+        {
+            // Assert 
+            Assert.Throws<ProductDoesNotExist>(() => _terminal.ScanProduct("G"));
+        }
+
+        [Fact]
+        public void Throw_ProductDoesNotExist_Exception_When_Product_Empty()
+        {
+            // Assert 
+            Assert.Throws<ProductDoesNotExist>(() => _terminal.ScanProduct(" "));
         }
     }
 }
