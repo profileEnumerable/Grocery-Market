@@ -45,7 +45,7 @@ namespace GroceryMarket.UnitTests
         }
 
         [Fact]
-        public void Throw_ProductDoesNotExist_Exception_When_Product_Empty()
+        public void Throw_ProductDoesNotExist_Exception_When_ProductName_Empty()
         {
             // Assert 
             Assert.Throws<ProductDoesNotExist>(() => _terminal.ScanProduct(" "));
