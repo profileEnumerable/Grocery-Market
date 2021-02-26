@@ -8,7 +8,7 @@ namespace GroceryMarket.UnitTests
     public class PointOfSaleTerminalShould : IClassFixture<EfContextFixture>
     {
         private readonly ITestOutputHelper _output;
-        private PointOfSaleTerminal _terminal;
+        private readonly PointOfSaleTerminal _terminal;
 
         public PointOfSaleTerminalShould(EfContextFixture fixture, ITestOutputHelper output)
         {
@@ -29,7 +29,14 @@ namespace GroceryMarket.UnitTests
             }
 
             // Assert
-            Assert.Equal(_terminal.CalculateTotalPrice(), expectedTotalPrice);
+            Assert.Equal(expectedTotalPrice, _terminal.CalculateTotalPrice());
+        }
+
+        [Fact]
+        public void Return_Zero_When_Products_Empty()
+        {
+            // Assert 
+            Assert.Equal(0, _terminal.CalculateTotalPrice());
         }
     }
 }
