@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using GroceryMarket.Domain.Core;
 using GroceryMarket.Infrastructure.Business.Exceptions;
@@ -8,18 +7,16 @@ using GroceryMarket.Services.Interfaces;
 
 namespace GroceryMarket.Infrastructure.Business
 {
-    public class PointOfSaleTerminal : IPointOfSaleTerminal, IDisposable
+    public class PointOfSaleTerminal : IPointOfSaleTerminal
     {
         private readonly ProductContext _context;
         private readonly Dictionary<Product, int> _basket;
 
         private double? _totalPrice = 0;
 
-        public PointOfSaleTerminal()
+        public PointOfSaleTerminal(ProductContext context)
         {
-            _context = new ProductContext();
-            _context.Database.EnsureCreated();
-
+            _context = context;
             _basket = new Dictionary<Product, int>();
         }
 
@@ -62,11 +59,6 @@ namespace GroceryMarket.Infrastructure.Business
                 _totalPrice += singleProductPrice;
             }
             return _totalPrice;
-        }
-
-        public void Dispose()
-        {
-            _context.Dispose();
         }
     }
 }

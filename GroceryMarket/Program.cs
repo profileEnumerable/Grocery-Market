@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Channels;
 using GroceryMarket.Infrastructure.Business;
 using GroceryMarket.Infrastructure.Business.Exceptions;
+using GroceryMarket.Infrastructure.Data;
 
 namespace GroceryMarket
 {
@@ -12,7 +13,10 @@ namespace GroceryMarket
         {
             var products = new List<string>() { "A", "B", "C", "D" };
 
-            using var saleTerminal = new PointOfSaleTerminal();
+            using var productContext = new ProductContext();
+            productContext.Database.EnsureCreated();
+
+            var saleTerminal = new PointOfSaleTerminal(productContext);
 
             foreach (var product in products)
             {
@@ -25,6 +29,7 @@ namespace GroceryMarket
                     Console.WriteLine(e);
                 }
             }
+
             double? totalPrice = saleTerminal.CalculateTotalPrice();
 
             Console.WriteLine($"Total price {totalPrice}");
