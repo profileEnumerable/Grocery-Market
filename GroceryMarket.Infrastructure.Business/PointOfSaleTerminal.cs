@@ -30,7 +30,7 @@ namespace GroceryMarket.Infrastructure.Business
             }
 
             _context.Entry(product)
-                .Reference(p => p.Price).Load();
+                .Reference(p => p.VolumeDiscount).Load();
 
             if (!_basket.TryGetValue(product, out int productQuantity))
             {
@@ -46,15 +46,15 @@ namespace GroceryMarket.Infrastructure.Business
                 double? singleProductPrice = 0;
                 int? unitsWithoutDiscount = productQuantityPair.Value;
 
-                Price price = productQuantityPair.Key.Price;
+                VolumeDiscount volumeDiscount = productQuantityPair.Key.VolumeDiscount;
 
-                if (price?.VolumeDiscountUnit <= productQuantityPair.Value)
+                if (volumeDiscount?.QuantityForDiscount <= productQuantityPair.Value)
                 {
-                    singleProductPrice = price.VolumePrice;
-                    unitsWithoutDiscount -= price.VolumeDiscountUnit;
+                    singleProductPrice = volumeDiscount.VolumePrice;
+                    unitsWithoutDiscount -= volumeDiscount.QuantityForDiscount;
                 }
 
-                singleProductPrice += unitsWithoutDiscount * price.PricePerUnit;
+                singleProductPrice += unitsWithoutDiscount * productQuantityPair.Key.PricePerUnit;
 
                 _totalPrice += singleProductPrice;
             }
