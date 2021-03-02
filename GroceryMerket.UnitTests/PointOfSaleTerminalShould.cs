@@ -1,3 +1,4 @@
+using System;
 using GroceryMarket.Infrastructure.Business;
 using GroceryMarket.Infrastructure.Business.Exceptions;
 using GroceryMarket.UnitTests.Fixtures;
@@ -37,18 +38,13 @@ namespace GroceryMarket.UnitTests
             Assert.Equal(0, _terminal.CalculateTotalPrice());
         }
 
-        [Fact]
-        public void Throw_ProductDoesNotExist_Exception_When_Product_Unknown()
+        [Theory]
+        [InlineData("G")]
+        [InlineData(" ")]
+        public void Throw_ProductDoesNotExist_Exception_When_Product_Unknown(string productCode)
         {
-            // Assert 
-            Assert.Throws<ProductDoesNotExist>(() => _terminal.ScanProduct("G"));
-        }
-
-        [Fact]
-        public void Throw_ProductDoesNotExist_Exception_When_ProductName_Empty()
-        {
-            // Assert 
-            Assert.Throws<ProductDoesNotExist>(() => _terminal.ScanProduct(" "));
+            // Assert
+            Assert.Throws<ProductDoesNotExist>(() => _terminal.ScanProduct(productCode));
         }
     }
 }
