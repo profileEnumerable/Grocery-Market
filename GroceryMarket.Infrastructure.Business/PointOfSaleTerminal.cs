@@ -39,7 +39,7 @@ namespace GroceryMarket.Infrastructure.Business
 
             _basket[product] = ++productQuantity;
         }
-        public double? CalculateTotalPrice()
+        public double? GetTotalPrice()
         {
             foreach (var productQuantityPair in _basket)
             {

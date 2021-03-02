@@ -29,7 +29,7 @@ namespace GroceryMarket
                 }
             }
 
-            double? totalPrice = saleTerminal.CalculateTotalPrice();
+            double? totalPrice = saleTerminal.GetTotalPrice();
 
             Console.WriteLine($"Total price {totalPrice}");
         }
