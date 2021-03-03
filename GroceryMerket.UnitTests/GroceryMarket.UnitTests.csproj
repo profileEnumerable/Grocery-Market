@@ -20,8 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GroceryMarket.Infrastructure.Business\GroceryMarket.Infrastructure.Business.csproj" />
     <ProjectReference Include="..\GroceryMarket.Infrastructure.Data\GroceryMarket.Infrastructure.Data.csproj" />
+    <ProjectReference Include="..\GroceryMarket.Services.Interfaces\GroceryMarket.Services.csproj" />
   </ItemGroup>
 
 </Project>

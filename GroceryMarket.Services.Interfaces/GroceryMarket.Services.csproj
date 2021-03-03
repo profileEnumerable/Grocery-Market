@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GroceryMarket.Domain.Core\GroceryMarket.Domain.Core.csproj" />
+    <ProjectReference Include="..\GroceryMarket.Infrastructure.Data\GroceryMarket.Infrastructure.Data.csproj" />
   </ItemGroup>
 
 </Project>

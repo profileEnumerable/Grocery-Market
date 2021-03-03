@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using GroceryMarket.Domain.Core;
-using GroceryMarket.Infrastructure.Business.Exceptions;
 using GroceryMarket.Infrastructure.Data;
-using GroceryMarket.Services.Interfaces;
+using GroceryMarket.Services.Exceptions;
 
-namespace GroceryMarket.Infrastructure.Business
+namespace GroceryMarket.Services.Services
 {
     public class PointOfSaleTerminal : IPointOfSaleTerminal
     {

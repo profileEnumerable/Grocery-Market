@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GroceryMarket.Infrastructure.Business.Exceptions
+namespace GroceryMarket.Services.Exceptions
 {
     public class ProductDoesNotExist : Exception
     {

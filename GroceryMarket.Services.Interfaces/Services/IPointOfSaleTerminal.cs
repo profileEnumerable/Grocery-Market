@@ -1,4 +1,4 @@
-﻿namespace GroceryMarket.Services.Interfaces
+﻿namespace GroceryMarket.Services.Services
 {
     public interface IPointOfSaleTerminal
     {

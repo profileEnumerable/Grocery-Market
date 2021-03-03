@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using GroceryMarket.Infrastructure.Business;
-using GroceryMarket.Infrastructure.Business.Exceptions;
 using GroceryMarket.Infrastructure.Data;
+using GroceryMarket.Services.Exceptions;
+using GroceryMarket.Services.Services;
 
 namespace GroceryMarket
 {
