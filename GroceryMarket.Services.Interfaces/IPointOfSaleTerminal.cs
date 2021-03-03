@@ -3,6 +3,6 @@
     public interface IPointOfSaleTerminal
     {
         void ScanProduct(string productName);
-        double? GetTotalPrice();
+        decimal GetTotalPrice();
     }
 }

@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
         public string Code { get; set; }
-        public double PricePerUnit { get; set; }
+        public decimal PricePerUnit { get; set; }
         public VolumeDiscount VolumeDiscount { get; set; } 
     }
 }

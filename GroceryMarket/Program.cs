@@ -12,26 +12,28 @@ namespace GroceryMarket
         {
             var products = new List<string>() { "A", "B", "C", "D" };
 
-            using var productContext = new ProductContext();
-            productContext.Database.EnsureCreated();
-
-            var saleTerminal = new PointOfSaleTerminal(productContext);
-
-            foreach (var product in products)
+            using (var productContext = new ProductContext())
             {
-                try
+                productContext.Database.EnsureCreated();
+
+                var saleTerminal = new PointOfSaleTerminal(productContext);
+
+                foreach (var product in products)
                 {
-                    saleTerminal.ScanProduct(product);
+                    try
+                    {
+                        saleTerminal.ScanProduct(product);
+                    }
+                    catch (ProductDoesNotExist e)
+                    {
+                        Console.WriteLine(e);
+                    }
                 }
-                catch (ProductDoesNotExist e)
-                {
-                    Console.WriteLine(e);
-                }
+
+                decimal totalPrice = saleTerminal.GetTotalPrice();
+
+                Console.WriteLine($"Total price {totalPrice}");
             }
-
-            double? totalPrice = saleTerminal.GetTotalPrice();
-
-            Console.WriteLine($"Total price {totalPrice}");
         }
     }
 }

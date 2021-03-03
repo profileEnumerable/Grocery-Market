@@ -12,7 +12,7 @@ namespace GroceryMarket.Infrastructure.Business
         private readonly ProductContext _context;
         private readonly Dictionary<Product, int> _basket;
 
-        private double? _totalPrice = 0;
+        private decimal _totalPrice;
 
         public PointOfSaleTerminal(ProductContext context)
         {
@@ -39,14 +39,14 @@ namespace GroceryMarket.Infrastructure.Business
 
             _basket[product] = ++productQuantity;
         }
-        public double? GetTotalPrice()
+        public decimal GetTotalPrice()
         {
             foreach (var productQuantityPair in _basket)
             {
-                double? singleProductPrice = 0;
-                int? unitsWithoutDiscount = productQuantityPair.Value;
+                decimal singleProductPrice = 0;
+                int unitsWithoutDiscount = productQuantityPair.Value;
 
-                VolumeDiscount volumeDiscount = productQuantityPair.Key.VolumeDiscount;
+                VolumeDiscount volumeDiscount = productQuantityPair.Key?.VolumeDiscount;
 
                 if (volumeDiscount?.QuantityForDiscount <= productQuantityPair.Value)
                 {
