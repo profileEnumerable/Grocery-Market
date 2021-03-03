@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using GroceryMarket.Infrastructure.Data;
+using GroceryMarket.Services;
 using GroceryMarket.Services.Exceptions;
 using GroceryMarket.Services.Services;
 
@@ -10,13 +11,13 @@ namespace GroceryMarket
     {
         static void Main()
         {
-            var products = new List<string>() { "A", "A", "A" };
+            var products = new List<string>() { "A", "B", "C", "D" };
 
             using (var productContext = new ProductContext())
             {
                 productContext.Database.EnsureCreated();
 
-                var saleTerminal = new PointOfSaleTerminal(productContext);
+                var saleTerminal = new PointOfSaleTerminal(productContext, new PriceCalculator());
 
                 foreach (var product in products)
                 {

@@ -6,6 +6,7 @@ namespace GroceryMarket.UnitTests.Fixtures
     public class EfContextFixture : IDisposable
     {
         public ProductContext Context { get; }
+
         public EfContextFixture()
         {
             Context = new ProductContext();

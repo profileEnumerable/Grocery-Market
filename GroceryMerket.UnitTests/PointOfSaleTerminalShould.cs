@@ -1,3 +1,4 @@
+using GroceryMarket.Services;
 using GroceryMarket.Services.Exceptions;
 using GroceryMarket.Services.Services;
 using GroceryMarket.UnitTests.Fixtures;
@@ -11,7 +12,7 @@ namespace GroceryMarket.UnitTests
 
         public PointOfSaleTerminalShould(EfContextFixture fixture)
         {
-            _terminal = new PointOfSaleTerminal(fixture.Context);
+            _terminal = new PointOfSaleTerminal(fixture.Context, new PriceCalculator());
         }
 
         [Theory]

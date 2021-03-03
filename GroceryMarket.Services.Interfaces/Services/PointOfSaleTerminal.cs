@@ -9,13 +9,13 @@ namespace GroceryMarket.Services.Services
     public class PointOfSaleTerminal : IPointOfSaleTerminal
     {
         private readonly ProductContext _context;
+        private readonly IPriceCalculator _priceCalculator;
         private readonly Dictionary<Product, int> _basket;
 
-        private decimal _totalPrice;
-
-        public PointOfSaleTerminal(ProductContext context)
+        public PointOfSaleTerminal(ProductContext context, IPriceCalculator priceCalculator)
         {
             _context = context;
+            _priceCalculator = priceCalculator;
             _basket = new Dictionary<Product, int>();
         }
 
@@ -38,24 +38,7 @@ namespace GroceryMarket.Services.Services
         }
         public decimal GetTotalPrice()
         {
-            foreach (var productQuantityPair in _basket)
-            {
-                decimal singleProductPrice = 0;
-                int unitsWithoutDiscount = productQuantityPair.Value;
-
-                VolumeDiscount volumeDiscount = productQuantityPair.Key?.VolumeDiscount;
-
-                if (volumeDiscount?.QuantityForDiscount <= productQuantityPair.Value)
-                {
-                    singleProductPrice = volumeDiscount.VolumePrice;
-                    unitsWithoutDiscount -= volumeDiscount.QuantityForDiscount;
-                }
-
-                singleProductPrice += unitsWithoutDiscount * productQuantityPair.Key.PricePerUnit;
-
-                _totalPrice += singleProductPrice;
-            }
-            return _totalPrice;
+            return _priceCalculator.CalculateTotalPrice(_basket);
         }
     }
 }
