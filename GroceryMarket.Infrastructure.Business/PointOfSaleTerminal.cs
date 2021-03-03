@@ -32,12 +32,10 @@ namespace GroceryMarket.Infrastructure.Business
             _context.Entry(product)
                 .Reference(p => p.VolumeDiscount).Load();
 
-            if (!_basket.TryGetValue(product, out int productQuantity))
+            if (!_basket.TryAdd(product, 1))
             {
-                _basket.Add(product, 1);
+                _basket[product]++;// increment product quantity
             }
-
-            _basket[product] = ++productQuantity;
         }
         public decimal GetTotalPrice()
         {

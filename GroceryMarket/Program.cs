@@ -10,7 +10,7 @@ namespace GroceryMarket
     {
         static void Main()
         {
-            var products = new List<string>() { "A", "B", "C", "D" };
+            var products = new List<string>() { "A", "A", "A" };
 
             using (var productContext = new ProductContext())
             {
