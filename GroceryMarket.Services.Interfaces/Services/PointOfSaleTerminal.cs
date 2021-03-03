@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using GroceryMarket.Domain.Core;
 using GroceryMarket.Infrastructure.Data;
@@ -39,6 +40,33 @@ namespace GroceryMarket.Services.Services
         public decimal GetTotalPrice()
         {
             return _priceCalculator.CalculateTotalPrice(_basket);
+        }
+
+        public void SetPricing(IEnumerable<Product> products)
+        {
+            foreach (Product product in products)
+            {
+                Product matchedProduct = _context.Products.FirstOrDefault(p => p.Code == product.Code);
+
+                if (matchedProduct != null)
+                {
+                    _context.Entry(matchedProduct)
+                        .Reference(p => p.VolumeDiscount).Load();
+
+                    matchedProduct.PricePerUnit = product.PricePerUnit;
+
+                    if (product.VolumeDiscount != null)
+                    {
+                        matchedProduct.VolumeDiscount.VolumePrice = product.VolumeDiscount.VolumePrice;
+                        matchedProduct.VolumeDiscount.QuantityForDiscount = product.VolumeDiscount.QuantityForDiscount;
+                    }
+                }
+                else
+                {
+                    _context.Add(product);
+                }
+            }
+            _context.SaveChanges();
         }
     }
 }

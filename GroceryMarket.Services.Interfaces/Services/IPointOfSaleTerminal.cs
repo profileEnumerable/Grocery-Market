@@ -1,8 +1,12 @@
-﻿namespace GroceryMarket.Services.Services
+﻿using System.Collections.Generic;
+using GroceryMarket.Domain.Core;
+
+namespace GroceryMarket.Services.Services
 {
     public interface IPointOfSaleTerminal
     {
         void ScanProduct(string productName);
         decimal GetTotalPrice();
+        void SetPricing(IEnumerable<Product> products);
     }
 }

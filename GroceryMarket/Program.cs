@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using GroceryMarket.Domain.Core;
 using GroceryMarket.Infrastructure.Data;
 using GroceryMarket.Services;
 using GroceryMarket.Services.Exceptions;
@@ -11,7 +12,7 @@ namespace GroceryMarket
     {
         static void Main()
         {
-            var products = new List<string>() { "A", "B", "C", "D" };
+            var productsForScan = new List<string>() { "A", "B", "C", "D" };
 
             using (var productContext = new ProductContext())
             {
@@ -19,7 +20,21 @@ namespace GroceryMarket
 
                 var saleTerminal = new PointOfSaleTerminal(productContext, new PriceCalculator());
 
-                foreach (var product in products)
+                var productsForUpdate = new List<Product>()
+                {
+                    new Product() {Code = "A", PricePerUnit = 3},
+                    new Product() {Code = "F", PricePerUnit = 10},
+                    new Product()
+                    {
+                        Code = "G",
+                        PricePerUnit = 5,
+                        VolumeDiscount = new VolumeDiscount() {VolumePrice = 20, QuantityForDiscount = 5}
+                    }
+                };
+
+                saleTerminal.SetPricing(productsForUpdate);
+
+                foreach (var product in productsForScan)
                 {
                     try
                     {
