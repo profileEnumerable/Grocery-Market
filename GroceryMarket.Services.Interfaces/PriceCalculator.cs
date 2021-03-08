@@ -5,12 +5,10 @@ namespace GroceryMarket.Services
 {
     public class PriceCalculator : IPriceCalculator
     {
-        private decimal _totalPrice;
-
-        public decimal TotalPrice => _totalPrice;
-
         public decimal CalculateTotalPrice(Dictionary<Product, int> basket)
         {
+            decimal _totalPrice = 0;
+
             foreach (var productQuantityPair in basket)
             {
                 decimal singleProductPrice = 0;
