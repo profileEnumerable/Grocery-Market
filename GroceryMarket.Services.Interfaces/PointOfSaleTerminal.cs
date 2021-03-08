@@ -10,12 +10,14 @@ namespace GroceryMarket.Services
     {
         private readonly ProductContext _context;
         private readonly IPriceCalculator _priceCalculator;
+        private readonly IPriceSetter _priceSetter;
         private readonly Dictionary<Product, int> _basket;
 
-        public PointOfSaleTerminal(ProductContext context, IPriceCalculator priceCalculator)
+        public PointOfSaleTerminal(ProductContext context, IPriceCalculator priceCalculator, IPriceSetter priceSetter)
         {
             _context = context;
             _priceCalculator = priceCalculator;
+            this._priceSetter = priceSetter;
             _basket = new Dictionary<Product, int>();
         }
 
@@ -46,32 +48,7 @@ namespace GroceryMarket.Services
 
         public void SetPricing(IEnumerable<Product> products)
         {
-            foreach (Product product in products)
-            {
-                Product matchedProduct = _context.Products.FirstOrDefault(p => p.Name == product.Name);
-
-                if (matchedProduct != null)
-                {
-                    _context.Entry(matchedProduct)
-                        .Reference(p => p.Discount).Load();
-
-                    _context.Entry(matchedProduct)
-                        .Reference(p => p.Price).Load();
-
-                    matchedProduct.Price.PricePerUnit = product.Price.PricePerUnit;
-
-                    if (product.Discount != null)
-                    {
-                        matchedProduct.Discount.VolumePrice = product.Discount.VolumePrice;
-                        matchedProduct.Discount.QuantityForDiscount = product.Discount.QuantityForDiscount;
-                    }
-                }
-                else
-                {
-                    _context.Add(product);
-                }
-            }
-            _context.SaveChanges();
+            _priceSetter.SetPricing(products, _context);
         }
     }
 }

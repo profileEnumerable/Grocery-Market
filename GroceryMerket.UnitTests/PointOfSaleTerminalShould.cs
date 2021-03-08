@@ -11,7 +11,7 @@ namespace GroceryMarket.UnitTests
 
         public PointOfSaleTerminalShould(EfContextFixture fixture)
         {
-            _terminal = new PointOfSaleTerminal(fixture.Context, new PriceCalculator());
+            _terminal = new PointOfSaleTerminal(fixture.Context, new PriceCalculator(), new PriceSetter());
         }
 
         [Theory]

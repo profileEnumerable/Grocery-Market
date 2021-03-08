@@ -17,7 +17,7 @@ namespace GroceryMarket
             {
                 productContext.Database.EnsureCreated();
 
-                var saleTerminal = new PointOfSaleTerminal(productContext, new PriceCalculator());
+                var saleTerminal = new PointOfSaleTerminal(productContext, new PriceCalculator(), new PriceSetter());
 
                 var productsForUpdate = new List<Product>()
                 {
