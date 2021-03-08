@@ -21,13 +21,13 @@ namespace GroceryMarket
 
                 var productsForUpdate = new List<Product>()
                 {
-                    new Product() {Code = "A", PricePerUnit = 3},
-                    new Product() {Code = "F", PricePerUnit = 10},
+                    new Product() {Name = "A", Price = new Price {PricePerUnit = 3 } },
+                    new Product() {Name = "F", Price = new Price { PricePerUnit = 10 } },
                     new Product()
                     {
-                        Code = "G",
-                        PricePerUnit = 5,
-                        VolumeDiscount = new VolumeDiscount() {VolumePrice = 20, QuantityForDiscount = 5}
+                        Name = "G",
+                        Price = new Price { PricePerUnit = 5 },
+                        Discount = new Discount() {VolumePrice = 20, QuantityForDiscount = 5}
                     }
                 };
 

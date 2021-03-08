@@ -7,7 +7,7 @@ namespace GroceryMarket.Infrastructure.Data
     public class ProductContext : DbContext
     {
         public DbSet<Product> Products { get; set; }
-        public DbSet<VolumeDiscount> Prices { get; set; }
+        public DbSet<Discount> Prices { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -17,7 +17,8 @@ namespace GroceryMarket.Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new ProductPopulation());
-            modelBuilder.ApplyConfiguration(new VolumeDiscountPopulation());
+            modelBuilder.ApplyConfiguration(new PricePopulation());
+            modelBuilder.ApplyConfiguration(new DiscountPopulation());
         }
     }
 }

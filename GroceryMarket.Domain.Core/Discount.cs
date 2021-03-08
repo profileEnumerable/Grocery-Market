@@ -1,6 +1,6 @@
 ﻿namespace GroceryMarket.Domain.Core
 {
-    public class VolumeDiscount
+    public class Discount
     {
         public int Id { get; set; }
         public decimal VolumePrice { get; set; }

@@ -14,7 +14,7 @@ namespace GroceryMarket.Services
                 decimal singleProductPrice = 0;
                 int unitsWithoutDiscount = productQuantityPair.Value;
 
-                VolumeDiscount volumeDiscount = productQuantityPair.Key?.VolumeDiscount;
+                Discount volumeDiscount = productQuantityPair.Key?.Discount;
 
                 if (volumeDiscount?.QuantityForDiscount <= productQuantityPair.Value)
                 {
@@ -22,7 +22,7 @@ namespace GroceryMarket.Services
                     unitsWithoutDiscount -= volumeDiscount.QuantityForDiscount;
                 }
 
-                singleProductPrice += unitsWithoutDiscount * productQuantityPair.Key.PricePerUnit;
+                singleProductPrice += unitsWithoutDiscount * productQuantityPair.Key.Price.PricePerUnit;
 
                 _totalPrice += singleProductPrice;
             }

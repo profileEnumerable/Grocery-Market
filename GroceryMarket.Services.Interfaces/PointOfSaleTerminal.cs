@@ -21,7 +21,7 @@ namespace GroceryMarket.Services
 
         public void ScanProduct(string productCode)
         {
-            Product product = _context.Products.FirstOrDefault(p => p.Code == productCode);
+            Product product = _context.Products.FirstOrDefault(p => p.Name == productCode);
 
             if (product == null)
             {
@@ -29,7 +29,10 @@ namespace GroceryMarket.Services
             }
 
             _context.Entry(product)
-                .Reference(p => p.VolumeDiscount).Load();
+                .Reference(p => p.Discount).Load();
+
+            _context.Entry(product)
+                .Reference(p => p.Price).Load();
 
             if (!_basket.TryAdd(product, 1))
             {
@@ -45,19 +48,22 @@ namespace GroceryMarket.Services
         {
             foreach (Product product in products)
             {
-                Product matchedProduct = _context.Products.FirstOrDefault(p => p.Code == product.Code);
+                Product matchedProduct = _context.Products.FirstOrDefault(p => p.Name == product.Name);
 
                 if (matchedProduct != null)
                 {
                     _context.Entry(matchedProduct)
-                        .Reference(p => p.VolumeDiscount).Load();
+                        .Reference(p => p.Discount).Load();
 
-                    matchedProduct.PricePerUnit = product.PricePerUnit;
+                    _context.Entry(matchedProduct)
+                        .Reference(p => p.Price).Load();
 
-                    if (product.VolumeDiscount != null)
+                    matchedProduct.Price.PricePerUnit = product.Price.PricePerUnit;
+
+                    if (product.Discount != null)
                     {
-                        matchedProduct.VolumeDiscount.VolumePrice = product.VolumeDiscount.VolumePrice;
-                        matchedProduct.VolumeDiscount.QuantityForDiscount = product.VolumeDiscount.QuantityForDiscount;
+                        matchedProduct.Discount.VolumePrice = product.Discount.VolumePrice;
+                        matchedProduct.Discount.QuantityForDiscount = product.Discount.QuantityForDiscount;
                     }
                 }
                 else
