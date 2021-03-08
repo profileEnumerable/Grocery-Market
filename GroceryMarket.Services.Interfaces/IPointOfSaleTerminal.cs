@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using GroceryMarket.Domain.Core;
 
-namespace GroceryMarket.Services.Services
+namespace GroceryMarket.Services
 {
     public interface IPointOfSaleTerminal
     {

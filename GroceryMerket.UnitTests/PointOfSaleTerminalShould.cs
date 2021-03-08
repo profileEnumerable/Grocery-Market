@@ -1,6 +1,5 @@
 using GroceryMarket.Services;
 using GroceryMarket.Services.Exceptions;
-using GroceryMarket.Services.Services;
 using GroceryMarket.UnitTests.Fixtures;
 using Xunit;
 

@@ -4,7 +4,6 @@ using GroceryMarket.Domain.Core;
 using GroceryMarket.Infrastructure.Data;
 using GroceryMarket.Services;
 using GroceryMarket.Services.Exceptions;
-using GroceryMarket.Services.Services;
 
 namespace GroceryMarket
 {
