@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using GroceryMarket.Domain.Core;
+﻿using GroceryMarket.Domain.Core;
 using GroceryMarket.Infrastructure.Data;
 using GroceryMarket.Services;
 using GroceryMarket.Services.Exceptions;
+using System;
+using System.Collections.Generic;
 
 namespace GroceryMarket
 {
