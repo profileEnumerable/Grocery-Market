@@ -7,7 +7,7 @@ namespace GroceryMarket.Services
     {
         public decimal CalculateTotalPrice(Dictionary<Product, int> basket)
         {
-            decimal _totalPrice = 0;
+            decimal totalPrice = 0;
 
             foreach (var productQuantityPair in basket)
             {
@@ -24,10 +24,10 @@ namespace GroceryMarket.Services
 
                 singleProductPrice += unitsWithoutDiscount * productQuantityPair.Key.Price.PricePerUnit;
 
-                _totalPrice += singleProductPrice;
+                totalPrice += singleProductPrice;
             }
 
-            return _totalPrice;
+            return totalPrice;
         }
     }
 }

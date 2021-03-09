@@ -1,4 +1,7 @@
+using System;
+using System.Collections.Generic;
 using GroceryMarket.Services;
+using GroceryMarket.Services.DTOs;
 using GroceryMarket.Services.Exceptions;
 using GroceryMarket.UnitTests.Fixtures;
 using Xunit;
@@ -12,6 +15,13 @@ namespace GroceryMarket.UnitTests
         public PointOfSaleTerminalShould(EfContextFixture fixture)
         {
             _terminal = new PointOfSaleTerminal(fixture.Context, new PriceCalculator(), new PriceSetter());
+        }
+
+        [Fact]
+        public void Constructor_Should_Throw_ArgumentException_When_Context_Parameter_Null()
+        {
+            Assert.Throws<ArgumentException>(() =>
+                new PointOfSaleTerminal(null, new PriceCalculator(), new PriceSetter()));
         }
 
         [Theory]
@@ -31,19 +41,24 @@ namespace GroceryMarket.UnitTests
         }
 
         [Fact]
-        public void GetTotalPrice_Should_Return_Zero_When_Basket_Empty()
+        public void Throw_ProductDoesNotExist_Exception_When_Product_Unknown()
         {
-            // Assert 
-            Assert.Equal(0, _terminal.GetTotalPrice());
+            Assert.Throws<ProductDoesNotExist>(() => _terminal.ScanProduct("G"));
         }
 
         [Theory]
-        [InlineData("G")]
-        [InlineData(" ")]
-        public void Throw_ProductDoesNotExist_Exception_When_Product_Unknown(string productCode)
+        [InlineData(null)]
+        [InlineData("")]
+        public void ScanProduct_Should_Throw_ArgumentException_When_ProductCode_Null_Or_Empty(string productCode)
         {
-            // Assert
-            Assert.Throws<ProductDoesNotExist>(() => _terminal.ScanProduct(productCode));
+            Assert.Throws<ArgumentException>(() => _terminal.ScanProduct(productCode));
+        }
+
+        [Fact]
+        public void SetPricing_Should_Throw_ArgumentException_When_Products_Null_Or_Empty()
+        {
+            Assert.Throws<ArgumentException>(() => _terminal.SetPricing(null));
+            Assert.Throws<ArgumentException>(() => _terminal.SetPricing(new List<ProductDto>()));
         }
     }
 }

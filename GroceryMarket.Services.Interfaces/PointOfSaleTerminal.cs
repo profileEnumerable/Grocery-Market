@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using GroceryMarket.Domain.Core;
 using GroceryMarket.Infrastructure.Data;
@@ -16,14 +17,17 @@ namespace GroceryMarket.Services
 
         public PointOfSaleTerminal(ProductContext context, IPriceCalculator priceCalculator, IPriceSetter priceSetter)
         {
-            _context = context;
-            _priceCalculator = priceCalculator;
-            this._priceSetter = priceSetter;
+            _context = context ?? throw new ArgumentException(nameof(priceCalculator));
+            _priceCalculator = priceCalculator ?? throw new ArgumentException(nameof(priceCalculator));
+            _priceSetter = priceSetter ?? throw new ArgumentException(nameof(priceCalculator));
             _basket = new Dictionary<Product, int>();
         }
 
         public void ScanProduct(string productCode)
         {
+            if (string.IsNullOrEmpty(productCode))
+                throw new ArgumentException("Product code is empty", nameof(productCode));
+
             Product product = _context.Products.FirstOrDefault(p => p.Name == productCode);
 
             if (product == null)
@@ -49,6 +53,9 @@ namespace GroceryMarket.Services
 
         public void SetPricing(IEnumerable<ProductDto> products)
         {
+            if (products == null || !products.Any())
+                throw new ArgumentException("Product collection is empty", nameof(products));
+
             _priceSetter.SetPricing(products, _context);
         }
     }
