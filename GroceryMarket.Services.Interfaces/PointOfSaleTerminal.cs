@@ -2,6 +2,7 @@
 using System.Linq;
 using GroceryMarket.Domain.Core;
 using GroceryMarket.Infrastructure.Data;
+using GroceryMarket.Services.DTOs;
 using GroceryMarket.Services.Exceptions;
 
 namespace GroceryMarket.Services
@@ -46,7 +47,7 @@ namespace GroceryMarket.Services
             return _priceCalculator.CalculateTotalPrice(_basket);
         }
 
-        public void SetPricing(IEnumerable<Product> products)
+        public void SetPricing(IEnumerable<ProductDto> products)
         {
             _priceSetter.SetPricing(products, _context);
         }

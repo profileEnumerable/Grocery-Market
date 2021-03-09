@@ -1,9 +1,9 @@
-﻿using GroceryMarket.Domain.Core;
-using GroceryMarket.Infrastructure.Data;
+﻿using GroceryMarket.Infrastructure.Data;
 using GroceryMarket.Services;
 using GroceryMarket.Services.Exceptions;
 using System;
 using System.Collections.Generic;
+using GroceryMarket.Services.DTOs;
 
 namespace GroceryMarket
 {
@@ -19,15 +19,15 @@ namespace GroceryMarket
 
                 var saleTerminal = new PointOfSaleTerminal(productContext, new PriceCalculator(), new PriceSetter());
 
-                var productsForUpdate = new List<Product>()
+                var productsForUpdate = new List<ProductDto>()
                 {
-                    new Product() {Name = "A", Price = new Price {PricePerUnit = 3 } },
-                    new Product() {Name = "F", Price = new Price { PricePerUnit = 10 } },
-                    new Product()
+                    new ProductDto() {Name = "A", Price = new PriceDto {PricePerUnit = 3}},
+                    new ProductDto() {Name = "F", Price = new PriceDto {PricePerUnit = 10}},
+                    new ProductDto()
                     {
                         Name = "G",
-                        Price = new Price { PricePerUnit = 5 },
-                        Discount = new Discount() {VolumePrice = 20, QuantityForDiscount = 5}
+                        Price = new PriceDto {PricePerUnit = 5},
+                        Discount = new DiscountDto() {VolumePrice = 20, QuantityForDiscount = 5}
                     }
                 };
 

@@ -15,9 +15,9 @@ namespace GroceryMarket.UnitTests
         }
 
         [Theory]
-        [InlineData(new string[] { "A", "B", "C", "D", "A", "B", "A" }, 13.25)]
-        [InlineData(new string[] { "C", "C", "C", "C", "C", "C", "C" }, 6)]
-        [InlineData(new string[] { "A", "B", "C", "D" }, 7.25)]
+        [InlineData(new[] { "A", "B", "C", "D", "A", "B", "A" }, 13.25)]
+        [InlineData(new[] { "C", "C", "C", "C", "C", "C", "C" }, 6)]
+        [InlineData(new[] { "A", "B", "C", "D" }, 7.25)]
         public void GetTotalPrices_For_OneOrMoreProducts(string[] products, decimal expectedTotalPrice)
         {
             // Act

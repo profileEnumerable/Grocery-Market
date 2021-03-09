@@ -2,16 +2,17 @@
 using GroceryMarket.Infrastructure.Data;
 using System.Collections.Generic;
 using System.Linq;
+using GroceryMarket.Services.DTOs;
 
 namespace GroceryMarket.Services
 {
     public class PriceSetter : IPriceSetter
     {
-        public void SetPricing(IEnumerable<Product> products, ProductContext context)
+        public void SetPricing(IEnumerable<ProductDto> products, ProductContext context)
         {
-            foreach (Product product in products)
+            foreach (ProductDto productDto in products)
             {
-                Product matchedProduct = context.Products.FirstOrDefault(p => p.Name == product.Name);
+                Product matchedProduct = context.Products.FirstOrDefault(p => p.Name == productDto.Name);
 
                 if (matchedProduct != null)
                 {
@@ -21,17 +22,33 @@ namespace GroceryMarket.Services
                     context.Entry(matchedProduct)
                         .Reference(p => p.Price).Load();
 
-                    matchedProduct.Price.PricePerUnit = product.Price.PricePerUnit;
+                    matchedProduct.Price.PricePerUnit = productDto.Price.PricePerUnit;
 
-                    if (product.Discount != null)
+                    if (productDto.Discount != null)
                     {
-                        matchedProduct.Discount.VolumePrice = product.Discount.VolumePrice;
-                        matchedProduct.Discount.QuantityForDiscount = product.Discount.QuantityForDiscount;
+                        matchedProduct.Discount.VolumePrice = productDto.Discount.VolumePrice;
+                        matchedProduct.Discount.QuantityForDiscount = productDto.Discount.QuantityForDiscount;
                     }
                 }
                 else
                 {
-                    context.Add(product);
+                    //TODO:Add auto mapper
+                    var newProduct = new Product
+                    {
+                        Name = productDto.Name,
+                        Price = new Price() { PricePerUnit = productDto.Price.PricePerUnit },
+                    };
+
+                    if (productDto.Discount != null)
+                    {
+                        newProduct.Discount = new Discount()
+                        {
+                            VolumePrice = productDto.Discount.VolumePrice,
+                            QuantityForDiscount = productDto.Discount.QuantityForDiscount
+                        };
+                    }
+
+                    context.Add(newProduct);
                 }
             }
             context.SaveChanges();

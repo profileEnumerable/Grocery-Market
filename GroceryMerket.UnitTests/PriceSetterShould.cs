@@ -1,9 +1,9 @@
-﻿using GroceryMarket.Domain.Core;
-using GroceryMarket.Infrastructure.Data;
+﻿using GroceryMarket.Infrastructure.Data;
 using GroceryMarket.Services;
 using System.Collections.Generic;
 using Xunit;
 using System.Linq;
+using GroceryMarket.Services.DTOs;
 
 namespace GroceryMarket.UnitTests
 {
@@ -22,12 +22,12 @@ namespace GroceryMarket.UnitTests
         public void SetPricing_Should_Add_New_Products_To_DB()
         {
             //Arrange
-            var newProduct = new List<Product>()
+            var newProduct = new List<ProductDto>()
             {
-                new Product
+                new ProductDto
                 {
                     Name = "E",
-                    Price = new Price { PricePerUnit = 5 }
+                    Price = new PriceDto { PricePerUnit = 5 }
                 }
             };
 
@@ -42,12 +42,12 @@ namespace GroceryMarket.UnitTests
         public void SetPricing_Should_Update_ProductPricePerUnit_When_Its_Exists_In_DB()
         {
             //Arrange
-            var newProduct = new List<Product>()
+            var newProduct = new List<ProductDto>()
             {
-                new Product
+                new ProductDto
                 {
                     Name = "A",
-                    Price = new Price { PricePerUnit = 3 }
+                    Price = new PriceDto { PricePerUnit = 3 }
                 }
             };
 

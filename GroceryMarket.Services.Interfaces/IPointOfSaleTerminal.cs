@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using GroceryMarket.Domain.Core;
+using GroceryMarket.Services.DTOs;
 
 namespace GroceryMarket.Services
 {
@@ -7,6 +7,6 @@ namespace GroceryMarket.Services
     {
         void ScanProduct(string productName);
         decimal GetTotalPrice();
-        void SetPricing(IEnumerable<Product> products);
+        void SetPricing(IEnumerable<ProductDto> products);
     }
 }
