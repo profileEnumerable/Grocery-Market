@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using GroceryMarket.Domain.Core;
-using GroceryMarket.Infrastructure.Data;
+﻿using GroceryMarket.Infrastructure.Data;
 using GroceryMarket.Services;
 using GroceryMarket.Services.Exceptions;
-using GroceryMarket.Services.Services;
+using System;
+using System.Collections.Generic;
+using GroceryMarket.Services.DTOs;
 
 namespace GroceryMarket
 {
@@ -18,17 +17,17 @@ namespace GroceryMarket
             {
                 productContext.Database.EnsureCreated();
 
-                var saleTerminal = new PointOfSaleTerminal(productContext, new PriceCalculator());
+                var saleTerminal = new PointOfSaleTerminal(productContext, new PriceCalculator(), new PriceSetter());
 
-                var productsForUpdate = new List<Product>()
+                var productsForUpdate = new List<ProductDto>()
                 {
-                    new Product() {Code = "A", PricePerUnit = 3},
-                    new Product() {Code = "F", PricePerUnit = 10},
-                    new Product()
+                    new ProductDto() {Name = "A", Price = new PriceDto {PricePerUnit = 3}},
+                    new ProductDto() {Name = "F", Price = new PriceDto {PricePerUnit = 10}},
+                    new ProductDto()
                     {
-                        Code = "G",
-                        PricePerUnit = 5,
-                        VolumeDiscount = new VolumeDiscount() {VolumePrice = 20, QuantityForDiscount = 5}
+                        Name = "G",
+                        Price = new PriceDto {PricePerUnit = 5},
+                        Discount = new DiscountDto() {VolumePrice = 20, QuantityForDiscount = 5}
                     }
                 };
 

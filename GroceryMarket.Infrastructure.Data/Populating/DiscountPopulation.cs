@@ -4,19 +4,19 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace GroceryMarket.Infrastructure.Data.Populating
 {
-    public class VolumeDiscountPopulation : IEntityTypeConfiguration<VolumeDiscount>
+    public class DiscountPopulation : IEntityTypeConfiguration<Discount>
     {
-        public void Configure(EntityTypeBuilder<VolumeDiscount> builder)
+        public void Configure(EntityTypeBuilder<Discount> builder)
         {
             builder.HasData(
-                    new VolumeDiscount
+                    new Discount
                     {
                         Id = 1,
                         VolumePrice = 3,
                         QuantityForDiscount = 3,
                         ProductId = 1
                     },
-                    new VolumeDiscount
+                    new Discount
                     {
                         Id = 2,
                         VolumePrice = 5,

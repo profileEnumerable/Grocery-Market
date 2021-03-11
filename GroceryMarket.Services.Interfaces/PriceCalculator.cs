@@ -5,18 +5,16 @@ namespace GroceryMarket.Services
 {
     public class PriceCalculator : IPriceCalculator
     {
-        private decimal _totalPrice;
-
-        public decimal TotalPrice => _totalPrice;
-
         public decimal CalculateTotalPrice(Dictionary<Product, int> basket)
         {
+            decimal totalPrice = 0;
+
             foreach (var productQuantityPair in basket)
             {
                 decimal singleProductPrice = 0;
                 int unitsWithoutDiscount = productQuantityPair.Value;
 
-                VolumeDiscount volumeDiscount = productQuantityPair.Key?.VolumeDiscount;
+                Discount volumeDiscount = productQuantityPair.Key?.Discount;
 
                 if (volumeDiscount?.QuantityForDiscount <= productQuantityPair.Value)
                 {
@@ -24,12 +22,12 @@ namespace GroceryMarket.Services
                     unitsWithoutDiscount -= volumeDiscount.QuantityForDiscount;
                 }
 
-                singleProductPrice += unitsWithoutDiscount * productQuantityPair.Key.PricePerUnit;
+                singleProductPrice += unitsWithoutDiscount * productQuantityPair.Key.Price.PricePerUnit;
 
-                _totalPrice += singleProductPrice;
+                totalPrice += singleProductPrice;
             }
 
-            return _totalPrice;
+            return totalPrice;
         }
     }
 }
