@@ -56,7 +56,7 @@ namespace GroceryMarket.Services
             if (products == null || !products.Any())
                 throw new ArgumentException("Product collection is empty", nameof(products));
 
-            _priceSetter.SetPricing(products, _context);
+            _priceSetter.SetProductsPricing(products, _context);
         }
     }
 }

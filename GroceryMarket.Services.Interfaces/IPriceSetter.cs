@@ -7,6 +7,6 @@ namespace GroceryMarket.Services
 {
     public interface IPriceSetter
     {
-        void SetPricing(IEnumerable<ProductDto> products, ProductContext context);
+        void SetProductsPricing(IEnumerable<ProductDto> products, ProductContext context);
     }
 }

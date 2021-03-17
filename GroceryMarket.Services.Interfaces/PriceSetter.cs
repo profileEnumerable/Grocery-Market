@@ -8,7 +8,7 @@ namespace GroceryMarket.Services
 {
     public class PriceSetter : IPriceSetter
     {
-        public void SetPricing(IEnumerable<ProductDto> products, ProductContext context)
+        public void SetProductsPricing(IEnumerable<ProductDto> products, ProductContext context)
         {
             foreach (ProductDto productDto in products)
             {

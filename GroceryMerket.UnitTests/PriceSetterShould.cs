@@ -32,7 +32,7 @@ namespace GroceryMarket.UnitTests
             };
 
             //Act
-            _priceSetter.SetPricing(newProduct, _productContext);
+            _priceSetter.SetProductsPricing(newProduct, _productContext);
 
             //Assert
             Assert.Contains(_productContext.Products, product => product.Name == "E");
@@ -52,7 +52,7 @@ namespace GroceryMarket.UnitTests
             };
 
             //Act
-            _priceSetter.SetPricing(newProduct, _productContext);
+            _priceSetter.SetProductsPricing(newProduct, _productContext);
 
             //Assert
             Assert.Equal(3, _productContext.Products.First(p => p.Name == "A").Price.PricePerUnit);

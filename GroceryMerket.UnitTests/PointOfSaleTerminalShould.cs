@@ -81,5 +81,21 @@ namespace GroceryMarket.UnitTests
             Assert.Throws<ArgumentException>(() => _terminal.SetPricing(null));
             Assert.Throws<ArgumentException>(() => _terminal.SetPricing(new List<ProductDto>()));
         }
+
+        [Fact]
+        public void SetPricing_Should_Call_SetProductsPricing_Once()
+        {
+            // Arrange
+            var mock = new Mock<IPriceSetter>();
+            var terminal = new PointOfSaleTerminal(_context, new PriceCalculator(), mock.Object);
+
+            // Act
+            terminal.SetPricing(new List<ProductDto>() { new ProductDto() });
+
+            // Assert
+            mock.Verify(priceSet => priceSet.SetProductsPricing(
+                It.IsAny<IEnumerable<ProductDto>>(), _context),
+                Times.Once);
+        }
     }
 }
